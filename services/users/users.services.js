@@ -29,7 +29,7 @@ exports.findOneByQuery = async (query) => {
  */
 
 exports.list = async (query) => {
-    return await Model.find(query).lean();
+    return await Model.find(query).select({ password: 0, email: 0, number: 0 }).lean();
 };
 
 /**
