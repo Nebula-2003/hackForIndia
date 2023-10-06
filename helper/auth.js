@@ -4,16 +4,16 @@ const Users = require("../services/users/users.model");
 
 exports.createToken = (payload) => {
     console.log("🚀 ~ file: auth.js:6 ~ payload:", payload);
-    return jwt.sign(payload, process.env.JWT_SECRET);
+    return jwt.sign(payload, "codevengersRock");
 };
 
 const verifyJWT = (req, res) => {
     try {
         const token = req.headers.authorization.replace("Bearer", "").trim();
         console.log(token);
-        const userInfo = jwt.verify(token, process.env.JWT_SECRET);
+        const userInfo = jwt.verify(token, "codevengersRock");
         req.user = userInfo;
-        return userInfo
+        return userInfo;
     } catch (error) {
         return 0;
     }

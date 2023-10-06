@@ -55,3 +55,7 @@ app.get("/", (req, res) => {
 });
 
 export default app;
+
+// module.export = app;
+
+// app.listen(port)

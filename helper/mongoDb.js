@@ -4,7 +4,7 @@ exports.mongo_connection = () => {
     mongoose.set("debug", true);
     try {
         mongoose.connect(
-            process.env.DATABASE_URI,
+            "mongodb+srv://tejus:tejus@cluster0.93zv4wh.mongodb.net/?retryWrites=true&w=majority",
             {
                 useNewUrlParser: true,
                 useFindAndModify: false,
@@ -20,7 +20,7 @@ exports.mongo_connection = () => {
             }
         );
     } catch (e) {
-        console.log("🚀 ~ file: mongoDb.js:23 ~ e:", e)
+        console.log("🚀 ~ file: mongoDb.js:23 ~ e:", e);
         console.log("MongoDB Connection Error");
     }
 };
