@@ -6,6 +6,13 @@ module.exports = {
      */
     create: async (req, res, next) => {
         try {
+            console.log("🚀 ~ file: citizensContributions.controller.js:14 ~ create: ~ req.files.images:", req.files);
+            if (req.files != undefined && req.files != undefined) {
+                req.body.images = req.files.map((element) => {
+                    return process.env.PUB_FILE + "/citizenContributions/" + element.filename;
+                });
+                console.log("🚀 ~ file: users.controller.js:14 ~ create: ~  req.body.image:", req.body.images);
+            }
             let data = await Service.add(req.body);
             if (data) {
                 return res.status(200).json({ error: false, message: "Success", data: data });
@@ -13,6 +20,7 @@ module.exports = {
                 return res.json({ error: true, message: "Something went wrong, Please try again" });
             }
         } catch (error) {
+            console.log("🚀 ~ file: citizensContributions.controller.js:22 ~ create: ~ error:", error);
             return res.status(400).json({ error: true, status: 400, message: error.message });
         }
     },
@@ -59,6 +67,12 @@ module.exports = {
 
     update: async (req, res, next) => {
         try {
+            if (req.files != undefined && req.files.images != undefined) {
+                req.body.images = req.files.images.map((element) => {
+                    return process.env.PUB_FILE + "/citizenContributions/" + element.filename;
+                });
+                console.log("🚀 ~ file: users.controller.js:14 ~ create: ~  req.body.image:", req.body.images);
+            }
             let update = await Service.update(req.params.id, req.body);
             if (update) {
                 return res.status(200).json({ error: false, message: "Success", data: update });

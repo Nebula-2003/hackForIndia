@@ -10,6 +10,12 @@ module.exports = {
         try {
             delete req.body.upVotes;
             delete req.body.downVotes;
+            if (req.files != undefined && req.files.images != undefined) {
+                req.body.images = req.files.images.map((element) => {
+                    return process.env.PUB_FILE + "/problem/" + element.filename;
+                });
+                console.log("🚀 ~ file: users.controller.js:14 ~ create: ~  req.body.image:", req.body.images);
+            }
             let data = await Service.add(req.body);
             if (data) {
                 return res.status(200).json({ error: false, message: "Success", data: data });
@@ -74,6 +80,12 @@ module.exports = {
             }
             delete req.body.upVotes;
             delete req.body.downVotes;
+            if (req.files != undefined && req.files.images != undefined) {
+                req.body.images = req.files.images.map((element) => {
+                    return process.env.PUB_FILE + "/problem/" + element.filename;
+                });
+                console.log("🚀 ~ file: users.controller.js:14 ~ create: ~  req.body.image:", req.body.images);
+            }
             let update = await Service.update(query, req.body);
             if (update) {
                 return res.status(200).json({ error: false, message: "Success", data: update });

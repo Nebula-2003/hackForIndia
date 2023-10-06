@@ -3,17 +3,19 @@ const router = require("express").Router();
 const guard = require("../../helper/auth");
 const validate = require("../../helper/validationFunc");
 const { create, update, vote } = require("./problem.validationSchema");
+const multerSetting = require("../../helper/multerHelper").problemImageUpload;
 
 /*
  *  Add
  */
 router.post(
     "/create",
+    guard.isAuthorized(["governmentOfficial", "citizen", "admin"]),
+    multerSetting,
     (req, res, next) => {
-        console.log(req.body);
+        console.log(req.files);
         next();
     },
-    guard.isAuthorized(["governmentOfficial", "citizen", "admin"]),
     validate(create),
     controller.create
 );
@@ -31,7 +33,7 @@ router.get("/list", controller.list);
 /*
  *  Update
  */
-router.put("/update/:id", guard.isAuthorized(["governmentOfficial", "citizen", "admin"]), validate(update), controller.update);
+router.put("/update/:id", guard.isAuthorized(["governmentOfficial", "citizen", "admin"]), multerSetting, validate(update), controller.update);
 
 /*
  *  Delete

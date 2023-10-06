@@ -2,7 +2,7 @@ const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 
 const create = Joi.object({
-    citizenId: Joi.string().required(),
+    citizenId: Joi.string(),
     problemId: Joi.string().required(),
     title: Joi.string().required(),
     description: Joi.string().required(),
