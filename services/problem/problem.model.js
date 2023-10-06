@@ -108,6 +108,7 @@ const problemSchema = new Schema(
     },
     { timestamps: true }
 );
+problemSchema.index({ location: "2dsphere" });
 
 problemSchema.plugin(softDelete);
 

@@ -45,7 +45,12 @@ module.exports = {
     list: async (req, res, next) => {
         try {
             let query = {};
-            let listAll = await Service.list(query);
+            let listAll = {};
+            if (req.query.longitude && req.query.latitude) {
+                listAll = await Service.geoNearList(req.query);
+            } else {
+                listAll = await Service.list(query);
+            }
             if (listAll) {
                 return res.status(200).json({ error: false, message: "Success", data: listAll });
             } else {
