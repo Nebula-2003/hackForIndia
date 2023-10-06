@@ -4,7 +4,7 @@ exports.mongo_connection = () => {
     mongoose.set("debug", true);
     try {
         mongoose.connect(
-            "mongodb://127.0.0.1:27017/hackforindia",
+            process.env.DATABASE_URI,
             {
                 useNewUrlParser: true,
                 useFindAndModify: false,
@@ -20,6 +20,7 @@ exports.mongo_connection = () => {
             }
         );
     } catch (e) {
+        console.log("🚀 ~ file: mongoDb.js:23 ~ e:", e)
         console.log("MongoDB Connection Error");
     }
 };

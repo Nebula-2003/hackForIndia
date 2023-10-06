@@ -3,6 +3,7 @@ const app = express();
 const port = 3000;
 const path = require("path");
 var cors = require("cors");
+require('dotenv').config();
 
 const indexRouter = require("./routes/index");
 const { mongo_connection } = require("./helper/mongoDb");

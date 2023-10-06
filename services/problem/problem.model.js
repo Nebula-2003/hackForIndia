@@ -1,27 +1,84 @@
 const mongoose = require("mongoose");
-let softDelete = require('mongoosejs-soft-delete');
+let softDelete = require("mongoosejs-soft-delete");
 
 const Schema = mongoose.Schema;
 
-
-const problemSchema = new Schema (
+const problemSchema = new Schema(
     {
-        complaintRaisedBy:{
+        complaintRaisedBy: {
             type: String,
         },
-        complaint:{
-            type:String,
-            required: true
+        type:{
+            type: String,
+            required: true,
         },
-        upVotes:{
+        location: {
+            type: { type: String, default: "Point" },
+            coordinates: [Number], // [longitude, latitude]
+        },
+        complaint: {
+            type: String,
+            required: true,
+        },
+        upVotes: {
             type: Number,
-            default : 0
+            default: 0,
         },
-        downVotes:{
+        downVotes: {
             type: Number,
-            default : 0
+            default: 0,
         },
-},
+        received: {
+            type: Object,
+            status: {
+                type: Boolean,
+                default: false,
+            },
+            date: {
+                type: Date,
+            },
+        },
+        reviewed: {
+            type: Object,
+            status: {
+                type: Boolean,
+                default: false,
+            },
+            date: {
+                type: Date,
+            },
+        },
+        assigned: {
+            type: Object,
+            status: {
+                type: Boolean,
+                default: false,
+            },
+            date: {
+                type: Date,
+            },
+        },
+        inProgress: {
+            type: Object,
+            status: {
+                type: Boolean,
+                default: false,
+            },
+            date: {
+                type: Date,
+            },
+        },
+        completed: {
+            type: Object,
+            status: {
+                type: Boolean,
+                default: false,
+            },
+            date: {
+                type: Date,
+            },
+        },
+    },
     { timestamps: true }
 );
 

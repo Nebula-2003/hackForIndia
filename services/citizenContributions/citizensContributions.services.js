@@ -1,4 +1,4 @@
-const Model = require("./users.model");
+const Model = require("./citizensContributions.model");
 
 /**
  * add
@@ -14,14 +14,6 @@ exports.add = async (reqBody) => {
 
 exports.get = async (id) => {
     return await Model.findOne({ _id: id }).sort({ created_at: -1 }).lean();
-};
-
-/**
- *Get
- */
-
-exports.findOneByQuery = async (query) => {
-    return await Model.findOne(query).sort({ created_at: -1 }).lean();
 };
 
 /**

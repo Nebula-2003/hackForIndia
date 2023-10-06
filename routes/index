@@ -1,9 +1,11 @@
 const { usersRoutes } = require("../services/users");
 const { problemRoutes } = require("../services/problem");
+const {citizenContributionsRoutes} = require("../services/citizenContributions");
 
 const initialize = (app) => {
     app.use("/api/user", usersRoutes);
     app.use("/api/problem", problemRoutes);
+    app.use("/api/citizenContributions", citizenContributionsRoutes);
 
     app.use("/authError", (req, res, next) => {
         return next(new Error("DEFAULT_AUTH"));

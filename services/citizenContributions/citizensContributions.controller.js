@@ -1,4 +1,4 @@
-const Service = require("./problem.services");
+const Service = require("./citizensContributions.services");
 
 module.exports = {
     /**
@@ -43,7 +43,7 @@ module.exports = {
             let query = {};
             let listAll = await Service.list(query);
             if (listAll) {
-                return res.status(200).json({ error: false, message: "Success", data: listAll });
+                return res.status(200).json({ error: false, message: "Success", data: list });
             } else {
                 return res.json({ error: true, status: 400, message: "Something went wrong, Please try again" });
             }
@@ -60,7 +60,7 @@ module.exports = {
         try {
             let update = await Service.update(req.params.id, req.body);
             if (update) {
-                return res.status(200).json({ error: false, message: "Success", data: update })
+                return res.status(200).json({ error: false, message: "Success", data: update });
             } else {
                 return res.json({ error: true, status: 400, message: "Something went wrong, Please try again" });
             }
@@ -77,7 +77,7 @@ module.exports = {
         try {
             let deleteTerms = await Service.delete(req.params.id);
             if (deleteTerms) {
-                return res.status(200).json({ error: false, message: "Success", data: deleteTerms })
+                return res.status(200).json({ error: false, message: "Success", data: deleteTerms });
             } else {
                 return res.json({ error: true, status: 400, message: "Something went wrong, Please try again" });
             }

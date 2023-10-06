@@ -10,11 +10,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.18.2",
+    "firebase-admin": "^11.11.0",
+    "joi": "^17.11.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^5.13.20",
-    "mongoosejs-soft-delete": "^1.0.2"
+    "mongoosejs-soft-delete": "^1.0.2",
+    "multer": "^1.4.5-lts.1"
   }
 }
