@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 const path = require("path");
 var cors = require("cors");
-require('dotenv').config();
+require("dotenv").config();
 
 const indexRouter = require("./routes/index");
 const { mongo_connection } = require("./helper/mongoDb");
@@ -50,11 +50,8 @@ app.use(function (err, req, res, next) {
     res.render("error");
 });
 
-module.exports = app;
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
-});
+export default app;
