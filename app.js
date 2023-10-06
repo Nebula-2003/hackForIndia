@@ -54,8 +54,8 @@ app.get("/", (req, res) => {
     res.send("Hello World!");
 });
 
-export default app;
+// export default app;
 
-// module.export = app;
+module.export = app;
 
-// app.listen(port)
+app.listen(port)

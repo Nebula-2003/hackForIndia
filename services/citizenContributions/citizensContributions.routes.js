@@ -1,11 +1,13 @@
 const controller = require("./citizensContributions.controller");
 const router = require("express").Router();
 const guard = require("../../helper/auth");
+const validate = require("../../helper/validationFunc");
+const { create, update } = require("./citizen.validationSchema");
 
 /*
  *  Add
  */
-router.post("/create", guard.isAuthorized(["governmentOfficial", "citizen", "admin"]), controller.create);
+router.post("/create", guard.isAuthorized(["governmentOfficial", "citizen", "admin"]), validate(create), controller.create);
 
 /*
  *  Get By Id
@@ -20,7 +22,7 @@ router.get("/list", controller.list);
 /*
  *  Update
  */
-router.put("/update/:id", guard.isAuthorized(["governmentOfficial", "citizen", "admin"]), controller.update);
+router.put("/update/:id", guard.isAuthorized(["governmentOfficial", "citizen", "admin"]), validate(update), controller.update);
 
 /*
  *  Delete

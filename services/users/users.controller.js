@@ -9,6 +9,11 @@ module.exports = {
     create: async (req, res, next) => {
         try {
             req.body.password = await password.hash(req.body.password);
+            if (req.files != undefined && req.files.image != undefined) {
+                req.body.image = process.env.PUB_FILE + "/userProfile/" + req.files.image[0].filename;
+                console.log("🚀 ~ file: users.controller.js:14 ~ create: ~  req.body.image:", req.body.image);
+            }
+
             let data = await Service.add(req.body);
             if (data) {
                 return res.status(201).json({ error: false, message: "Success", data: data });
@@ -45,8 +50,7 @@ module.exports = {
             }
         } catch (error) {
             console.log("🚀 ~ file: problem.controller.js:28 ~ login: ~ error:", error);
-            return res.status(400).json({ error: true, status: 400, message: error.message });
-            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+            return res.status(400).json({ error: true, status: 400, message: "Something went wrong, Please try again" });
         }
     },
 
@@ -63,7 +67,7 @@ module.exports = {
                 return res.json({ error: true, status: 400, message: "Something went wrong, Please try again" });
             }
         } catch (error) {
-            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+            return res.status(400).json({ error: true, status: 400, message: "Something went wrong, Please try again" });
         }
     },
 
@@ -81,7 +85,7 @@ module.exports = {
                 return res.json({ error: false, status: 200, data: [], message: "No data found" });
             }
         } catch (error) {
-            return res.json({ error: true, status: 400, message: "Something went wrong, Please try again" });
+            return res.status(400).json({ error: true, status: 400, message: "Something went wrong, Please try again" });
         }
     },
 
@@ -92,6 +96,10 @@ module.exports = {
     update: async (req, res, next) => {
         try {
             let update = await Service.update(req.params.id, req.body);
+            if (req.files != undefined && req.files.image != undefined) {
+                req.body.image = process.env.PUB_FILE + "/userProfile/" + req.files.image[0].filename;
+                console.log("🚀 ~ file: users.controller.js:14 ~ create: ~  req.body.image:", req.body.image);
+            }
             if (update) {
                 return res.json({ error: false, status: 200, message: "Success", data: update });
             } else {

@@ -25,6 +25,30 @@ exports.list = async (query) => {
 };
 
 /**
+ * GeoNear Listing
+ */
+exports.geoNearList = async (query) => {
+    return await Model.aggregate([
+        {
+            $geoNear: {
+                near: {
+                    type: "Point",
+                    coordinates: [parseFloat(query.longitude), parseFloat(query.latitude)],
+                },
+                distanceField: "distance",
+                maxDistance: 100000,
+                spherical: true,
+            },
+        },
+        {
+            $sort: {
+                distance: 1, // Sort by distance in ascending order (nearest to farthest)
+            },
+        },
+    ]);
+};
+
+/**
  *update
  */
 

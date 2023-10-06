@@ -5,10 +5,37 @@ const Schema = mongoose.Schema;
 
 const problemSchema = new Schema(
     {
-        complaintRaisedBy: {
+        images: [{ type: String }],
+        problemName: {
+            type: String,
+            required: true,
+        },
+        haveYouComplainedBefore: {
+            type: Boolean,
+            default: false,
+        },
+        city: {
+            type: String,
+            required: true,
+        },
+        locality: {
             type: String,
         },
-        type:{
+        address1: {
+            type: String,
+        },
+        address2: {
+            type: String,
+        },
+        pinCode: {
+            type: Number,
+        },
+        complaintRaisedBy: {
+            type: Schema.Types.ObjectId,
+            ref: "user",
+            required: true,
+        },
+        type: {
             type: String,
             required: true,
         },

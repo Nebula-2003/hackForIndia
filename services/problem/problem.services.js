@@ -21,21 +21,52 @@ exports.get = async (id) => {
  */
 
 exports.list = async (query) => {
-    return await Model.find(query).lean();
+    return await Model.aggregate([
+        { $match: query },
+        {
+            $addFields: {
+                netVotes: { $subtract: ["$upVotes", "$downVotes"] },
+            },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "complaintRaisedBy",
+                foreignField: "_id",
+                as: "complaintRaisedByData",
+            },
+        },
+        {
+            $sort: { netVotes: -1 },
+        },
+    ]);
 };
 
 /**
  *update
  */
 
-exports.update = async (id, reqBody) => {
-    return await Model.findByIdAndUpdate({ _id: id }, { $set: reqBody }, { new: true }).lean();
+exports.update = async (query, reqBody) => {
+    return await Model.findByIdAndUpdate(query, { $set: reqBody }, { new: true }).lean();
 };
 
 /**
  *Delete
  */
 
-exports.delete = async (id) => {
-    return await Model.findByIdAndDelete({ _id: id }).lean();
+exports.delete = async (query) => {
+    return await Model.findByIdAndDelete(query).lean();
+};
+
+/**
+ * vote
+ */
+
+exports.vote = async (id, vote) => {
+    if (vote.toLowerCase() == "upvote") {
+        console.log("id", id);
+        return await Model.findByIdAndUpdate({ _id: id }, { $inc: { upVotes: 1 } }, { new: true }).lean();
+    } else if (vote.toLowerCase() == "downvote") {
+        return await Model.findByIdAndUpdate({ _id: id }, { $inc: { downVotes: 1 } }, { new: true }).lean();
+    }
 };

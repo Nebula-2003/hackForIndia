@@ -3,11 +3,12 @@ const router = require("express").Router();
 const guard = require("../../helper/auth");
 const validate = require("../../helper/validationFunc");
 const { create, update, login } = require("./users.validationSchema");
+const multerSetting = require("../../helper/multerHelper").userImageUpload;
 
 /*
  *  Add
  */
-router.post("/create", validate(create), controller.create);
+router.post("/create", multerSetting, validate(create), controller.create);
 
 /*
  *  Login
@@ -27,7 +28,7 @@ router.get("/list", controller.list);
 /*
  *  Update
  */
-router.put("/update/:id", guard.isAuthorized(["citizen", "admin"]), validate(update), controller.update);
+router.put("/update/:id", multerSetting, guard.isAuthorized(["citizen", "admin"]), validate(update), controller.update);
 
 /*
  *  Delete

@@ -33,6 +33,16 @@ const usersSchema = new Schema(
             default: "citizen",
             required: false,
         },
+        votes: {
+            type: Number,
+            default: 0,
+        },
+        votedComplaintsList: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "problem",
+            },
+        ],
     },
     { timestamps: true }
 );

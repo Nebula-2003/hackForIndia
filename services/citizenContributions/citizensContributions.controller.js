@@ -13,7 +13,7 @@ module.exports = {
                 return res.json({ error: true, message: "Something went wrong, Please try again" });
             }
         } catch (error) {
-            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+            return res.status(400).json({ error: true, status: 400, message: error.message });
         }
     },
 
@@ -30,7 +30,7 @@ module.exports = {
                 return res.json({ error: true, status: 400, message: "Something went wrong, Please try again" });
             }
         } catch (error) {
-            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+            return res.status(400).json({ error: true, status: 400, message: error.message });
         }
     },
 
@@ -41,14 +41,20 @@ module.exports = {
     list: async (req, res, next) => {
         try {
             let query = {};
-            let listAll = await Service.list(query);
+            let listAll;
+            if(req.query.longitude && req.query.latitude){
+                listAll = await Service.list(query);
+            }else{
+                listAll = await Service.list(query);
+            }
             if (listAll) {
-                return res.status(200).json({ error: false, message: "Success", data: list });
+                return res.status(200).json({ error: false, message: "Success", data: listAll });
             } else {
                 return res.json({ error: true, status: 400, message: "Something went wrong, Please try again" });
             }
         } catch (error) {
-            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+            console.log("🚀 ~ file: citizensContributions.controller.js:51 ~ list: ~ error:", error);
+            return res.status(400).json({ error: true, status: 400, message: error.message });
         }
     },
 
@@ -65,7 +71,7 @@ module.exports = {
                 return res.json({ error: true, status: 400, message: "Something went wrong, Please try again" });
             }
         } catch (error) {
-            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+            return res.status(400).json({ error: true, status: 400, message: error.message });
         }
     },
 
@@ -82,7 +88,7 @@ module.exports = {
                 return res.json({ error: true, status: 400, message: "Something went wrong, Please try again" });
             }
         } catch (error) {
-            return commonResponse.CustomError(res, "DEFAULT_INTERNAL_SERVER_ERROR", 500, {}, error.message);
+            return res.status(400).json({ error: true, status: 400, message: error.message });
         }
     },
 };

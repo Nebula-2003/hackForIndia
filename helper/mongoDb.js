@@ -4,7 +4,7 @@ exports.mongo_connection = () => {
     mongoose.set("debug", true);
     try {
         mongoose.connect(
-            "mongodb+srv://tejus:tejus@cluster0.93zv4wh.mongodb.net/?retryWrites=true&w=majority",
+            process.env.DATABASE_URI,
             {
                 useNewUrlParser: true,
                 useFindAndModify: false,
