@@ -43,9 +43,9 @@ exports.update = async (id, reqBody) => {
  * Raw update
  */
 
-exports.rawUpdate = async (query, updateData,options) => {
-    return await Model.findOneAndUpdate(query, updateData,options).lean();
-}
+exports.rawUpdate = async (query, updateData, options) => {
+    return await Model.findOneAndUpdate(query, updateData, options).lean();
+};
 
 /**
  *Delete
@@ -55,10 +55,9 @@ exports.delete = async (id) => {
     return await Model.findByIdAndDelete({ _id: id }).lean();
 };
 
-
 /**
  * vote checking api
  */
 exports.getIfVoted = async (id, problemId) => {
     return await Model.findOne({ _id: id, votedComplaintsList: problemId }).lean();
-}
+};

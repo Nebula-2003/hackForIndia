@@ -16,7 +16,13 @@ module.exports = {
 
             let data = await Service.add(req.body);
             if (data) {
-                return res.status(201).json({ error: false, message: "Success", data: data });
+                let token = auth.createToken({ id: data._id, role: data.role });
+                console.log("🚀 ~ file: users.controller.js:21 ~ create: ~ { id: data._id, role: data.role }):", data._id, data.role);
+                if (token) {
+                    return res.status(200).json({ error: false, message: "Success", token: token, ...data._doc });
+                } else {
+                    throw new Error("Something went wrong, Please try again");
+                }
             } else {
                 return res.json({ error: true, status: 400, message: "Something went wrong, Please try again" });
             }

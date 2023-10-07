@@ -10,8 +10,10 @@ module.exports = {
         try {
             delete req.body.upVotes;
             delete req.body.downVotes;
-            if (req.files != undefined && req.files.images != undefined) {
-                req.body.images = req.files.images.map((element) => {
+            req.body.location = { type: "Point" };
+            req.body.location.coordinates = req.body.coordinates;
+            if (req.files != undefined && req.files != undefined) {
+                req.body.images = req.files.map((element) => {
                     return process.env.PUB_FILE + "/problem/" + element.filename;
                 });
                 console.log("🚀 ~ file: users.controller.js:14 ~ create: ~  req.body.image:", req.body.images);
@@ -23,6 +25,7 @@ module.exports = {
                 return res.json({ error: true, message: "Something went wrong, Please try again" });
             }
         } catch (error) {
+            console.log("🚀 ~ file: problem.controller.js:28 ~ create: ~ error:", error);
             return res.status(400).json({ error: true, status: 400, message: error.message });
         }
     },
@@ -80,8 +83,8 @@ module.exports = {
             }
             delete req.body.upVotes;
             delete req.body.downVotes;
-            if (req.files != undefined && req.files.images != undefined) {
-                req.body.images = req.files.images.map((element) => {
+            if (req.files != undefined && req.files != undefined) {
+                req.body.images = req.files.map((element) => {
                     return process.env.PUB_FILE + "/problem/" + element.filename;
                 });
                 console.log("🚀 ~ file: users.controller.js:14 ~ create: ~  req.body.image:", req.body.images);

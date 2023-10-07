@@ -11,10 +11,7 @@ const create = Joi.object({
     pinCode: Joi.number(),
     complaintRaisedBy: Joi.objectId().required(),
     type: Joi.string().required(),
-    location: Joi.object({
-        type: Joi.string().default("Point"),
-        coordinates: Joi.array().items(Joi.number()),
-    }),
+    coordinates: Joi.array().items(Joi.number()),
     complaint: Joi.string().required(),
     upVotes: Joi.number().default(0),
     downVotes: Joi.number().default(0),
@@ -50,10 +47,7 @@ const update = Joi.object({
     pinCode: Joi.number(),
     complaintRaisedBy: Joi.objectId().optional(),
     type: Joi.string().optional(),
-    location: Joi.object({
-        type: Joi.string().default("Point"),
-        coordinates: Joi.array().items(Joi.number()),
-    }),
+    coordinates: Joi.array().items(Joi.number()),
     complaint: Joi.string().optional(),
     upVotes: Joi.number().default(0),
     downVotes: Joi.number().default(0),

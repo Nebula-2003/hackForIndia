@@ -67,8 +67,8 @@ module.exports = {
 
     update: async (req, res, next) => {
         try {
-            if (req.files != undefined && req.files.images != undefined) {
-                req.body.images = req.files.images.map((element) => {
+            if (req.files != undefined && req.files != undefined) {
+                req.body.images = req.files.map((element) => {
                     return process.env.PUB_FILE + "/citizenContributions/" + element.filename;
                 });
                 console.log("🚀 ~ file: users.controller.js:14 ~ create: ~  req.body.image:", req.body.images);
