@@ -12,11 +12,17 @@ module.exports = {
             delete req.body.downVotes;
             req.body.location = { type: "Point" };
             req.body.location.coordinates = req.body.coordinates;
+
+            console.log("🚀 ~ file: problem.controller.js:17 ~ create: ~ req.files:", req.files);
             if (req.files != undefined && req.files != undefined) {
                 req.body.images = req.files.map((element) => {
-                    return process.env.PUB_FILE + "/problem/" + element.filename;
+                    const fs = require("fs");
+                    // Read the file as binary data
+                    const fileData = fs.readFileSync(element.path);
+                    const base64Data = fileData.toString("base64");
+                    const updatedImageData = "data:image/jpeg;base64," + base64Data;
+                    return updatedImageData;
                 });
-                console.log("🚀 ~ file: users.controller.js:14 ~ create: ~  req.body.image:", req.body.images);
             }
             let data = await Service.add(req.body);
             if (data) {
@@ -85,7 +91,11 @@ module.exports = {
             delete req.body.downVotes;
             if (req.files != undefined && req.files != undefined) {
                 req.body.images = req.files.map((element) => {
-                    return process.env.PUB_FILE + "/problem/" + element.filename;
+                    const fs = require("fs");
+                    const fileData = fs.readFileSync(element.path);
+                    const base64Data = fileData.toString("base64");
+                    const updatedImageData = "data:image/jpeg;base64," + base64Data;
+                    return updatedImageData;
                 });
                 console.log("🚀 ~ file: users.controller.js:14 ~ create: ~  req.body.image:", req.body.images);
             }
