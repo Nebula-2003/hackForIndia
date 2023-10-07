@@ -1,6 +1,6 @@
 const { usersRoutes } = require("../services/users");
 const { problemRoutes } = require("../services/problem");
-const {citizenContributionsRoutes} = require("../services/citizenContributions");
+const { citizenContributionsRoutes } = require("../services/citizenContributions");
 
 const initialize = (app) => {
     app.use("/api/user", usersRoutes);
@@ -10,7 +10,15 @@ const initialize = (app) => {
     app.use("/authError", (req, res, next) => {
         return next(new Error("DEFAULT_AUTH"));
     });
-
+    app.get("/", (req, res) => {
+        res.status(200).send({
+            success: true,
+            message: "Welcome to the API!",
+            author: "Tejus Raghavendra",
+            event: "Hackforindia 2023",
+            statusCode: 200,
+        });
+    });
     app.get("/ping", (req, res) => {
         res.status(200).send({
             success: true,
